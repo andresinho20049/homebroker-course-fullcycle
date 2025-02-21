@@ -1,0 +1,61 @@
+### Teste POST Assets
+# @name createAsset
+POST http://localhost:3000/assets
+Content-Type: application/json
+
+{
+    "name": "Amazon Teste",
+    "symbol": "AMZN01",
+    "price": 55.04,
+    "image": ""
+}
+
+### Teste GET Assets
+GET http://localhost:3000/assets
+
+### Teste GET Assets by Symbol
+GET http://localhost:3000/assets/AMZN01
+
+### Teste POST Wallets
+# @name createWallet
+POST http://localhost:3000/wallets
+Content-Type: application/json
+
+{
+}
+
+### Teste GET Wallets
+GET http://localhost:3000/wallets
+
+### Teste GET Wallets by Id
+
+@walletId = {{ createWallet.response.body._id }}
+@assetId = {{ createAsset.response.body._id }}
+
+
+GET http://localhost:3000/wallets/{{walletId}}
+
+### Teste POST WalletAsset
+# @name createWalletAsset
+POST http://localhost:3000/wallets/{{walletId}}/assets
+Content-Type: application/json
+
+{
+    "asset": "{{assetId}}",
+    "shares": 1
+}
+
+### Teste POST Order
+POST http://localhost:3000/orders
+Content-Type: application/json
+
+{
+    "wallet": "{{walletId}}",
+    "asset": "{{assetId}}",
+    "shares": 1,
+    "price": 100,
+    "type": "BUY"
+}
+
+### Teste GET Order
+GET http://localhost:3000/orders?walletId={{walletId}}
