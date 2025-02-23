@@ -2,7 +2,8 @@ import Navbar from "@/my-app/components/csr/navbar/navbar";
 import { ThemeProvider } from "@/my-app/context/theme-context";
 import type { Metadata } from "next";
 import "./globals.css";
-import { MyWalletProvider } from "../context/wallet-context";
+import { MyWalletProvider } from "@/my-app/context/wallet-context";
+import { ToastContainer } from "@/my-app/components/csr/toast/toast-container";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,6 +25,7 @@ export default function RootLayout({
 					defaultTheme="system"
 					enableSystem
 				>
+          <ToastContainer />
           <Navbar />
           <MyWalletProvider>
             <main className="container my-4 mx-auto px-4 flex flex-grow">

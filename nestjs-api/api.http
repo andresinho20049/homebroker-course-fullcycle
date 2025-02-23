@@ -4,9 +4,9 @@ POST http://localhost:3000/assets
 Content-Type: application/json
 
 {
-    "name": "NVIDA",
+    "name": "NVIDIA",
     "symbol": "NVDA",
-    "price": 70.50,
+    "price": 68.50,
     "image": "/NVDA.png"
 }
 
@@ -44,6 +44,18 @@ Content-Type: application/json
     "asset": "c2035c0e-8435-4111-9872-f71b6b162b92",
     "shares": 54
 }
+
+###
+POST http://localhost:3000/assets/AMZN/dailies
+Content-Type: application/json
+
+{
+  "date": "2024-10-10",
+  "price": 95
+}
+
+###
+GET http://localhost:3000/assets/AMZN/dailies
 
 ### Teste POST Order
 POST http://localhost:3000/orders

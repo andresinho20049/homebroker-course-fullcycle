@@ -4,6 +4,7 @@ import { UpdateAssetDto } from './dto/update-asset.dto';
 import { Model } from 'mongoose';
 import { Asset } from './entities/asset.entity';
 import { InjectModel } from '@nestjs/mongoose';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class AssetsService {
@@ -28,5 +29,32 @@ export class AssetsService {
 
   remove(id: string) {
     return this.assetSchema.deleteOne({ _id: id });
+  }
+
+  subscribeUpdatedPriceEvents(): Observable<Asset> {
+    return new Observable((observe) => {
+
+      this.assetSchema.watch([
+        {
+          $match: {
+            $or: [
+              {operationType: 'update'},
+              {operationType: 'replace'}
+            ]
+          }
+        }
+      ], {
+        fullDocument: 'updateLookup', 
+        fullDocumentBeforeChange: 'whenAvailable'
+      }).on('change', async (data) => {
+        if(data.fullDocument.price === data.fullDocumentBeforeChange.price) {
+          return;
+        }
+        
+        const asset = await this.assetSchema.findById(data.fullDocument._id);
+        observe.next(asset!)
+      })
+
+    })
   }
 }

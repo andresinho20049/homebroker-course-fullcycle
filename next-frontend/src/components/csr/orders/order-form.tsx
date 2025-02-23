@@ -1,7 +1,11 @@
+'use client';
+
 import { Asset } from "@/my-app/models/asset";
-import { OrderType } from "@/my-app/models/order";
+import { Order, OrderType } from "@/my-app/models/order";
+import { socket } from "@/my-app/services/nest-api-base";
 import { Button, Label, TextInput, TextInputProps } from "flowbite-react";
-import { HTMLInputTypeAttribute } from "react";
+import { FormEvent, HTMLInputTypeAttribute, useCallback } from "react";
+import { toast } from "react-toastify";
 
 type OrderFormType = {
     asset: Asset;
@@ -17,10 +21,26 @@ export const OrderForm = ({
     const color = type == OrderType.BUY ? "text-buy" : "text-sell";
     const translatedType = type == OrderType.BUY ? "Comprar": "Vender";
 
+    const onSubmit = useCallback((event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        const formData= new FormData(event.currentTarget);
+        const data = Object.fromEntries(formData.entries());
+
+        socket.connect();
+        socket.emit('orders/create', data);
+    }, [])
+
+    socket.on('orders/create', (newOrder: Order) => {
+
+        if(!!newOrder)
+            toast(`Ordem de ${translatedType} de ${newOrder.shares} ações de ${newOrder.asset.symbol} criada com sucesso!`, {type: "success", position: "top-right"})
+    })
+
     return (
-        <form action="">
-            <input type="hidden" name="assetId" defaultValue={asset._id} />
-            <input type="hidden" name="walletId" defaultValue={walletId} />
+        <form onSubmit={onSubmit}>
+            <input type="hidden" name="asset" defaultValue={asset._id} />
+            <input type="hidden" name="wallet" defaultValue={walletId} />
             <input type="hidden" name="type" defaultValue={type} />
             <TextInputOrderForm 
                 required

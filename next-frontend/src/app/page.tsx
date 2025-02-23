@@ -3,6 +3,8 @@ import { Button, Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow
 import { AssetShow } from "../components/ssr/assets/asset-show";
 import { WalletList } from "../components/ssr/wallet/wallet-list";
 import Link from "next/link";
+import { AssetsSync } from "../components/csr/asset/asset-sync";
+import { AssetRow } from "../components/csr/asset/asset-row";
 
 type MyWalletListType = {
   searchParams: Promise<{wallet_id: string}>
@@ -30,18 +32,14 @@ export default async function MyWalletListPage({
           </TableHead>
           <TableBody>
             {myWallet.assets.map((wAsset)=> (
-              <TableRow key={wAsset._id}>
-                <TableCell>
-                  <AssetShow asset={wAsset.asset} />
-                </TableCell>
-                <TableCell>{wAsset.asset.price}</TableCell>
-                <TableCell>{wAsset.shares}</TableCell>
-                <TableCell><Button color="light" as={Link} href={`/assets/${wAsset.asset.symbol}?wallet_id=${wallet_id}`}>Comprar/Vender</Button></TableCell>
-              </TableRow>
+              <AssetRow asset={wAsset.asset} walletId={wallet_id} key={wAsset.asset._id} />
             ))}
           </TableBody>
         </Table>
       </div>
+      <AssetsSync 
+        symbols={myWallet.assets.map(wa => wa.asset.symbol)}
+      />
     </div>
   );
 }

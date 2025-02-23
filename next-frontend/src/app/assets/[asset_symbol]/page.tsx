@@ -1,9 +1,10 @@
 import { AssetChartComponent } from "@/my-app/components/csr/chart/asset-chart-component";
 import { AssetShow } from "@/my-app/components/ssr/assets/asset-show";
-import { OrderForm } from "@/my-app/components/ssr/orders/order-form";
+import { OrderForm } from "@/my-app/components/csr/orders/order-form";
 import { OrderType } from "@/my-app/models/order";
-import { getAssetBySymbol } from "@/my-app/services/assets/asset-service";
+import { getAssetBySymbol, getAssetDailies } from "@/my-app/services/assets/asset-service";
 import { Card, TabItem, Tabs } from "flowbite-react";
+import { Time } from "lightweight-charts";
 
 
 type AssetDashboardType = {
@@ -19,6 +20,11 @@ export default async function AssetDashboardPage({
     const {asset_symbol} = await params;
 
     const asset = await getAssetBySymbol(asset_symbol);
+    const assetDailies = await getAssetDailies(asset_symbol);
+    const chartData = assetDailies.map((assetDaily) => ({
+      time: (Date.parse(assetDaily.date) / 1000) as Time,
+      value: assetDaily.price,
+    }));
 
     return (
         <div className="flex flex-col space-y-5 flex-grow">
@@ -40,7 +46,7 @@ export default async function AssetDashboardPage({
                     </Card>
                 </div>
                 <div className="col-span-3 flex flex-grow">
-                    <AssetChartComponent asset={asset} />
+                    <AssetChartComponent asset={asset} data={chartData}/>
                 </div>
             </div>
         </div>

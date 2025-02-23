@@ -5,3 +5,10 @@ export type Asset = {
     price: number;
     image: string;
 }
+
+export type AssetDaily = {
+    _id: string;
+    asset: Asset;
+    date: string;
+    price: number;
+  }
