@@ -12,13 +12,15 @@ export class OrdersService {
 
   create(createOrderDto: CreateOrderDto) {
     return this.orderSchema.create({
-      ...createOrderDto,
-      status: OrderStatus.PENDING
+      status: OrderStatus.PENDING,
+      ...createOrderDto
     });
   }
 
   findAll(filter: { wallet: string; }) {
-    return this.orderSchema.find(filter);
+    return this.orderSchema.find(filter).populate([
+      'asset'
+    ]);
   }
 
   findOne(id: string) {

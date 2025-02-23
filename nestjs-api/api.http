@@ -4,10 +4,10 @@ POST http://localhost:3000/assets
 Content-Type: application/json
 
 {
-    "name": "Amazon Teste",
-    "symbol": "AMZN01",
-    "price": 55.04,
-    "image": ""
+    "name": "NVIDA",
+    "symbol": "NVDA",
+    "price": 70.50,
+    "image": "/NVDA.png"
 }
 
 ### Teste GET Assets
@@ -41,8 +41,8 @@ POST http://localhost:3000/wallets/{{walletId}}/assets
 Content-Type: application/json
 
 {
-    "asset": "{{assetId}}",
-    "shares": 1
+    "asset": "c2035c0e-8435-4111-9872-f71b6b162b92",
+    "shares": 54
 }
 
 ### Teste POST Order
@@ -52,8 +52,8 @@ Content-Type: application/json
 {
     "wallet": "{{walletId}}",
     "asset": "{{assetId}}",
-    "shares": 1,
-    "price": 100,
+    "shares": 2,
+    "price": 70.50,
     "type": "BUY"
 }
 

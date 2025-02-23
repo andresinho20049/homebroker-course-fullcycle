@@ -1,37 +1,33 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
 } from '@nestjs/common';
 import { AssetsService } from './assets.service';
 import { CreateAssetDto } from './dto/create-asset.dto';
 import { UpdateAssetDto } from './dto/update-asset.dto';
-import { AssetPresenter } from './asset.presenter';
 
 @Controller('assets')
 export class AssetsController {
   constructor(private readonly assetsService: AssetsService) { }
 
   @Post()
-  async create(@Body() createAssetDto: CreateAssetDto) {
-    const asset = await this.assetsService.create(createAssetDto);
-    return new AssetPresenter(asset);
+  create(@Body() createAssetDto: CreateAssetDto) {
+    return this.assetsService.create(createAssetDto);
   }
 
   @Get()
-  async findAll() {
-    const assets = await this.assetsService.findAll();
-    return assets.map((asset) => new AssetPresenter(asset));
+  findAll() {
+    return this.assetsService.findAll();
   }
 
   @Get(':symbol')
-  async findOne(@Param('symbol') symbol: string) {
-    const asset = await this.assetsService.findOne(symbol);
-    return asset && new AssetPresenter(asset);
+  findOne(@Param('symbol') symbol: string) {
+    return this.assetsService.findOne(symbol);
   }
 
   @Patch(':id')
