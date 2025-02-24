@@ -1,4 +1,5 @@
 # HomeBroker - Investment Management Application
+[![pt-br](https://img.shields.io/badge/lang-pt--br-green.svg)](https://github.com/andresinho20049/homebroker-course-fullcycle/blob/main/README.pt-br.md)
 
 ## Overview
 
@@ -50,7 +51,7 @@ The following diagram provides an overview of the application's architecture:
                          | |
                          v |
                   +---------------+
-                  |     Kafka (MB)|
+                  |   Kafka (MB)  |
                   +---------------+
                          | ^
                          | |
@@ -62,12 +63,20 @@ The following diagram provides an overview of the application's architecture:
 
 This diagram provides an overview of the project architecture, highlighting communication between microservices using Kafka messaging and WebServices architectures with REST and WebSocket.
 
-## Using the Application
+## Getting Started:
 
-1. Send requests to the API: `curl -X GET http://localhost:3000/`
-2. View logs: `docker-compose logs --follow`
-3. Use WebSocket protocol to receive real-time updates:
-   - Connect to WebSocket endpoint: `wss://localhost:3001/`
+To set up the project, follow these steps:
+
+1. **Clone the repository:** \
+`git clone https://github.com/andresinho20049/homebroker-course-fullcycle && cd homebroker-course-fullcycle`
+2. **Run Docker Compose:** \
+Execute `docker compose up`
+3. **After running all services, start next-frontend:** \
+Execute `cd next-frontend && npm run dev`
+
+> **Note:** The first execution may take longer than a minute due to the initial image download.
+
+Once the project is running, you can access the web portal at `http://localhost:3000` and start testing the features and services.
 
 ## Contributing
 
