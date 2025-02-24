@@ -4,9 +4,33 @@ POST http://localhost:3000/assets
 Content-Type: application/json
 
 {
+    "name": "Amazon",
+    "symbol": "AMZN",
+    "price": 73.50,
+    "image": "/AMZN.png"
+}
+
+### Teste POST Assets
+# @name createAsset2
+POST http://localhost:3000/assets
+Content-Type: application/json
+
+{
+    "name": "Google",
+    "symbol": "GOOGL",
+    "price": 68.90,
+    "image": "/GOOGL.png"
+}
+
+### Teste POST Assets
+# @name createAsset3
+POST http://localhost:3000/assets
+Content-Type: application/json
+
+{
     "name": "NVIDIA",
     "symbol": "NVDA",
-    "price": 68.50,
+    "price": 71.20,
     "image": "/NVDA.png"
 }
 
@@ -24,12 +48,21 @@ Content-Type: application/json
 {
 }
 
+### Teste POST Wallets
+# @name createWallet2
+POST http://localhost:3000/wallets
+Content-Type: application/json
+
+{
+}
+
 ### Teste GET Wallets
 GET http://localhost:3000/wallets
 
 ### Teste GET Wallets by Id
 
 @walletId = {{ createWallet.response.body._id }}
+@walletId2 = {{ createWallet2.response.body._id }}
 @assetId = {{ createAsset.response.body._id }}
 
 
@@ -41,8 +74,8 @@ POST http://localhost:3000/wallets/{{walletId}}/assets
 Content-Type: application/json
 
 {
-    "asset": "c2035c0e-8435-4111-9872-f71b6b162b92",
-    "shares": 54
+    "asset": "{{assetId}}",
+    "shares": 100
 }
 
 ###
@@ -62,12 +95,27 @@ POST http://localhost:3000/orders
 Content-Type: application/json
 
 {
+    "shares": 25,
+    "partial": 0,
+    "price": 71.50,
     "wallet": "{{walletId}}",
     "asset": "{{assetId}}",
-    "shares": 2,
-    "price": 70.50,
+    "type": "SELL"
+}
+
+### Teste POST Order
+POST http://localhost:3000/orders
+Content-Type: application/json
+
+{
+    "shares": 25,
+    "partial": 0,
+    "price": 71.50,
+    "wallet": "{{walletId2}}",
+    "asset": "{{assetId}}",
     "type": "BUY"
 }
+
 
 ### Teste GET Order
 GET http://localhost:3000/orders?walletId={{walletId}}
