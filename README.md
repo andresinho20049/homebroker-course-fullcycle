@@ -1,5 +1,3 @@
-Aqui está o novo README:
-
 # HomeBroker - Investment Management Application
 
 ## Overview
