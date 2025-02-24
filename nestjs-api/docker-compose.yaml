@@ -1,8 +1,30 @@
 services:
-  mongo:
-    build: ./.docker/mongo
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=root
-    ports:
-      - 27017:27017
+    mongo:
+        build: ./.docker/mongo
+        healthcheck:
+            test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=root
+            - MONGO_INITDB_ROOT_PASSWORD=root
+        ports:
+            - 27017:27017
+
+    nest-main:
+        build: .
+        command: bash -c "sleep 30 && node /opt/app/main"
+        ports:
+            - 3000:3000
+        depends_on:
+            mongo:
+                condition: service_healthy
+            zookeeper:
+                condition: service_healthy
+
+    nest-consumer:
+        build: .
+        command: bash -c "sleep 30 && node /opt/app/_cmd/kafka.cmd"
+        depends_on:
+            mongo:
+                condition: service_healthy
+            zookeeper:
+                condition: service_healthy

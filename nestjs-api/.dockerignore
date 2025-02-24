@@ -1,0 +1,29 @@
+# Ignore arquivos de node_modules
+node_modules/
+
+# Ignore o diretório .git
+.git/
+
+# Ignore o diretório .idea (IDE)
+.idea/
+
+# Ignore o diretório .vscode (Visual Studio Code)
+.vscode/
+
+# Ignore arquivos de build
+dist/
+
+# Ignore arquivos de cache
+.cache/
+
+# Ignore arquivos de entorno (env)
+.env
+
+# Ignore arquivos de backup (backup)
+.backup/
+
+# Ignore arquivos de logs
+logs/
+
+# Ignore arquivos de deploys (deploy)
+/deploy/

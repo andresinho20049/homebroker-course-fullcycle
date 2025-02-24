@@ -33,7 +33,7 @@ import * as kafkaLib from '@confluentinc/kafka-javascript';
       provide: kafkaLib.KafkaJS.Kafka,
       useFactory() {
         return new kafkaLib.KafkaJS.Kafka({
-          'bootstrap.servers': 'localhost:9094',
+          'bootstrap.servers': 'kafka:9094',
         });
       },
     },],

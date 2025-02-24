@@ -23,13 +23,13 @@ func main() {
 	kafkaMsgChan := make(chan *ckafka.Message)
 
 	consumerConfig := &ckafka.ConfigMap{
-		"bootstrap.servers": "localhost:9094",
+		"bootstrap.servers": "kafka:9094",
 		"group.id":          "trade",
 		"auto.offset.reset": "latest",
 	}
 
 	producerConfig := &ckafka.ConfigMap{
-		"bootstrap.servers": "localhost:9094",
+		"bootstrap.servers": "kafka:9094",
 	}
 
 	consumer := kafka.NewConsumer(consumerConfig, []string{"orders"})

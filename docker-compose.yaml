@@ -1,0 +1,4 @@
+include:
+  - ./kafka/docker-compose.yaml
+  - ./nestjs-api/docker-compose.yaml
+  - ./go-homebroker/docker-compose.yaml
