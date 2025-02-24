@@ -102,7 +102,7 @@ func (b *Book) priceMatch(order *Order, matchOrder *Order) bool {
 func (b *Book) createTransaction(IncomingOrder *Order, matchedOrder *Order) *Transaction {
 	var buyOrder, sellOrder *Order
 
-	if IncomingOrder.OrderType == "BUT" {
+	if IncomingOrder.OrderType == "BUY" {
 		buyOrder, sellOrder = IncomingOrder, matchedOrder
 	} else {
 		buyOrder, sellOrder = matchedOrder, IncomingOrder
